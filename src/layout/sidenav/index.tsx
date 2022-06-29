@@ -44,7 +44,7 @@ const Sidenav = ({}: SidenavProps) => {
 
     return <SidenavWrapper>
         {
-            (Array.from(hooks.keys())).map(hook => {
+            (Array.from(hooks.keys()).sort()).map(hook => {
                 console.log(route, hook);
                 return <Link className={(route === hook) ? "active" : ""} key={hook} to={`${hook}`}>{hooks.get(hook)?.title as string ?? ""}</Link>
             })

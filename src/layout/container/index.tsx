@@ -5,11 +5,17 @@ import Header from "../header";
 import Sidenav from "../sidenav";
 
 const ContainerWrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  
   .container {
     display: flex;
     
     .content {
       width: 100%;
+      height: calc(100vh - 60px);
+      overflow-y: scroll;
     }
   }
 `;
