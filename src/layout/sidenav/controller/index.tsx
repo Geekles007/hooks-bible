@@ -266,7 +266,51 @@ export default function Component() {
         [
             "use-window-dimensions", {
             title: "useWindowDimensions()",
-            hookCode: `<></>`
+            hookCode: `
+import {useEffect, useState} from "react";
+
+export interface IDimension {
+    width: number;
+    height: number;
+}
+
+const useWindowDimensions = () => {
+  const [windowDimensions, setWindowDimensions] = useState<IDimension>({
+    width: 0,
+    height: 0,
+  });
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return windowDimensions;
+};
+
+export default useWindowDimensions;
+            `,
+            usageCode: `
+import { useWindowDimensions } from "./useWindowDimensions";
+import React from "react";
+
+const App = () => {
+    const { width, height } = useWindowDimensions();
+    
+    return <p>{width} x {height}</p>;            
+}
+
+export default App;`,
+            description: <p>
+                This hook allows you to get the current window dimensions.
+            </p>
         }
         ],
         [
